@@ -27,34 +27,45 @@ function runSearch() {
       type: "rawlist",
       message: "What would you like to do?",
       choices: [
-        "Find songs by artist",
-        "Find all artists who appear more than once",
-        "Find data within a specific range",
-        "Search for a specific song",
-        "Find artists with a top song and top album in the same year",
+        "Add department",
+        "Add role",
+        "Add employee",
+        "View department",
+        "View role",
+        "View employee",
+        "Update employee roles",
       ],
     })
     .then(function (answer) {
       switch (answer.action) {
-        case "Find songs by artist":
-          artistSearch();
+        case "Add department":
+          addDepartment();
           break;
 
-        case "Find all artists who appear more than once":
-          multiSearch();
+        case "Add role":
+          addRole();
           break;
 
-        case "Find data within a specific range":
-          rangeSearch();
+        case "Add employee":
+          addEmployee();
           break;
 
-        case "Search for a specific song":
-          songSearch();
+        case "View department":
+          viewDepartment();
           break;
 
-        case "Find artists with a top song and top album in the same year":
-          songAndAlbumSearch();
+        case "View role":
+          viewRole();
           break;
+
+        case "View employee":
+          viewEmployee();
+          break;
+
+        case "Update employee roles":
+          updateEmployeeRole();
+          break;
+
       }
     });
 }
