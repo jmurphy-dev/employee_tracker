@@ -90,14 +90,13 @@ function addDepartment() {
     .prompt({
       name: "name",
       type: "input",
-      message: "What will you name the new department?"
+      message: "What will you name the new department?",
     })
-    .then(function(answer) {
+    .then(function (answer) {
       var query = "INSERT INTO employeeDB.departments SET ?";
-      connection.query(query, { name: answer.name }, function(err, res) {
+      connection.query(query, { name: answer.name }, function (err, res) {
         if (err) throw err;
         viewDepartment();
-        
       });
     });
 }
@@ -112,6 +111,53 @@ function viewRole() {
   });
   runSearch();
 }
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        name: "title",
+        type: "input",
+        message: "What will you title the new role?",
+      },
+      {
+        name: "salary",
+        type: "input",
+        message: "What will the roles salary be?",
+        validate: function (value) {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return false;
+        }
+      },
+      {
+        name: "department_id",
+        type: "input",
+        message: "Which department will the hold this role?",
+        validate: function (value) {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return false;
+        }
+      },
+    ])
+    .then(function (answer) {
+      var query = "INSERT INTO employeeDB.roles SET ?";
+      connection.query(
+        query,
+        {
+          title: answer.title,
+          salary: parseInt(answer.salary),
+          department_id: parseInt(answer.department_id),
+        },
+        function (err, res) {
+          if (err) throw err;
+          viewRole();
+        }
+      );
+    });
+}
 
 function viewEmployee() {
   connection.query("SELECT * FROM employeeDB.employees", function (err, res) {
@@ -123,4 +169,3 @@ function viewEmployee() {
   });
   runSearch();
 }
-
