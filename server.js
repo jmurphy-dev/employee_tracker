@@ -34,6 +34,7 @@ function runSearch() {
         "View role",
         "View employee",
         "Update employee roles",
+        "Exit...",
       ],
     })
     .then(function (answer) {
@@ -66,6 +67,43 @@ function runSearch() {
           updateEmployeeRole();
           break;
 
+        case "Exit":
+          exit();
+          break;
       }
     });
 }
+
+function viewDepartment() {
+  connection.query("SELECT * FROM employeeDB.departments", function (err, res) {
+    if (err) throw err;
+
+    // Log all results of the SELECT statement
+    console.table(res);
+    connection.end();
+  });
+  runSearch();
+}
+
+function viewRole() {
+  connection.query("SELECT * FROM employeeDB.roles", function (err, res) {
+    if (err) throw err;
+
+    // Log all results of the SELECT statement
+    console.table(res);
+    connection.end();
+  });
+  runSearch();
+}
+
+function viewEmployee() {
+  connection.query("SELECT * FROM employeeDB.employees", function (err, res) {
+    if (err) throw err;
+
+    // Log all results of the SELECT statement
+    console.table(res);
+    connection.end();
+  });
+  runSearch();
+}
+
