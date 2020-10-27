@@ -85,6 +85,23 @@ function viewDepartment() {
   runSearch();
 }
 
+function addDepartment() {
+  inquirer
+    .prompt({
+      name: "name",
+      type: "input",
+      message: "What will you name the new department?"
+    })
+    .then(function(answer) {
+      var query = "INSERT INTO employeeDB.departments SET ?";
+      connection.query(query, { name: answer.name }, function(err, res) {
+        if (err) throw err;
+        viewDepartment();
+        
+      });
+    });
+}
+
 function viewRole() {
   connection.query("SELECT * FROM employeeDB.roles", function (err, res) {
     if (err) throw err;
